@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Package, Truck, Store, Shield, ArrowLeft } from 'lucide-react';
+import { Package, Truck, Store, Shield, ArrowLeft, Wallet } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { ROLES } from '../utils/constants';
 import { toast } from 'react-hot-toast';
@@ -18,7 +18,7 @@ const RoleSelection = () => {
       description: 'Create product batches and initiate tracking',
       features: ['Create batches', 'Generate QR codes', 'Set initial data'],
       gradient: 'from-blue-500 to-cyan-500',
-      route: '/manufacturer',
+      route: '/manufacturer-login',
     },
     {
       id: ROLES.DISTRIBUTOR,
@@ -27,11 +27,11 @@ const RoleSelection = () => {
       description: 'Transfer custody and maintain chain integrity',
       features: ['Scan batches', 'Transfer ownership', 'Update location'],
       gradient: 'from-yellow-500 to-orange-500',
-      route: '/distributor',
+      route: '/distributor-login',
     },
     {
       id: ROLES.CONSUMER,
-      icon: Shield,
+      icon: Wallet,
       title: 'Consumer',
       description: 'Verify product authenticity and provenance',
       features: ['Scan QR codes', 'View history', 'Check integrity'],
@@ -41,18 +41,28 @@ const RoleSelection = () => {
   ];
 
   const handleRoleSelect = async (role) => {
-    // Consumers don't need a connected wallet to view verification
-    if (role.id !== ROLES.CONSUMER && !walletAddress) {
+    // Allow access to login pages and consumer dashboard without wallet
+    if (role.id === ROLES.CONSUMER || role.route.includes('login')) {
+      try {
+        if (role.id !== ROLES.CONSUMER) {
+          await selectRole(role.id);
+        }
+        navigate(role.route);
+      } catch (error) {
+        console.error('Failed to select role:', error);
+      }
+      return;
+    }
+
+    // For other roles, wallet is required (though login pages provide alternatives)
+    if (!walletAddress) {
       toast.error('Please connect your wallet first');
       navigate('/');
       return;
     }
 
     try {
-      // Only set the role for non-consumer flows (consumer is a public verifier)
-      if (role.id !== ROLES.CONSUMER) {
-        await selectRole(role.id);
-      }
+      await selectRole(role.id);
       navigate(role.route);
     } catch (error) {
       console.error('Failed to select role:', error);
@@ -149,7 +159,7 @@ const RoleSelection = () => {
           transition={{ delay: 0.6 }}
           className="glass-card p-6 max-w-2xl mx-auto mt-12 text-center"
         >
-          <Shield className="text-cyber-400 mx-auto mb-3" size={32} />
+          <Wallet className="text-cyber-400 mx-auto mb-3" size={32} />
           <p className="text-slate-300">
             Your wallet is connected as{' '}
             <span className="text-cyber-400 font-mono">

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Shield, Package, Truck, Store, ArrowRight } from 'lucide-react';
+import { Shield, Package, Truck, Store, ArrowRight, Wallet } from 'lucide-react';
 import WalletConnect from '../components/WalletConnect';
 import { useApp } from '../context/AppContext';
 
@@ -29,7 +29,7 @@ const HomePage = () => {
       color: 'text-green-400',
     },
     {
-      icon: Shield,
+      icon: Wallet,
       title: 'Consumer',
       description: 'Verify authenticity and product provenance',
       color: 'text-purple-400',

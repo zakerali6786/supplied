@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wallet, LogOut, Truck, Store } from 'lucide-react';
+import { Wallet, LogOut, Truck, Store, Search } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
@@ -49,7 +49,7 @@ const WalletConnect = () => {
         onClick={() => navigate('/manufacturer-login')}
         className="btn-primary flex items-center gap-2"
       >
-        <Truck size={20} />
+        <Store size={20} />
         Manufacturer
       </motion.button>
 
@@ -59,8 +59,18 @@ const WalletConnect = () => {
         onClick={() => navigate('/distributor-login')}
         className="btn-primary flex items-center gap-2"
       >
-        <Store size={20} />
+        <Truck size={20} />
         Distributor
+      </motion.button>
+
+      <motion.button
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        onClick={() => navigate('/verify')}
+        className="btn-primary flex items-center gap-2"
+      >
+        <Search size={20} />
+        Verify
       </motion.button>
     </div>
   );

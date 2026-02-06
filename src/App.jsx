@@ -10,6 +10,7 @@ import ManufacturerDashboard from './pages/ManufacturerDashboard';
 import DistributorDashboard from './pages/DistributorDashboard';
 import RetailerDashboard from './pages/RetailerDashboard';
 import ConsumerVerification from './pages/ConsumerVerification';
+import VerifyPage from './pages/VerifyPage';
 import DashboardLayout from './layouts/DashboardLayout';
 import ConsumerDashboard from './pages/ConsumerDashboard';
 
@@ -25,6 +26,7 @@ function App() {
             {/* Public Routes */}
             <Route path="/" element={<HomePage />} />
             <Route path="/role-selection" element={<RoleSelection />} />
+            <Route path="/verify" element={<VerifyPage />} />
             
             {/* Role-based Dashboards */}
             <Route path="/manufacturer" element={<ManufacturerDashboard />} />
