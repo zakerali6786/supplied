@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
-import Topbar from '../components/Topbar';
+import Topbarcd from '../components/Topbarcd';
 import './DashboardLayout.css';
 
 const DashboardLayout = () => {
@@ -19,7 +19,7 @@ const DashboardLayout = () => {
         <div className="dashboard-layout">
             <Sidebar />
             <div className="main-content-wrapper">
-                <Topbar title={getTitle(location.pathname)} />
+                <Topbarcd title={getTitle(location.pathname)} />
                 <main className="content-area">
                     <Outlet />
                 </main>
