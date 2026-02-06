@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Shield, Home, Users } from 'lucide-react';
+import { Shield, Home, Users, Package, Truck, Search } from 'lucide-react';
 
 const Sidebar = () => {
   const linkClass = ({ isActive }) =>
@@ -30,6 +30,21 @@ const Sidebar = () => {
         <NavLink to="/consumer-dashboard" className={linkClass}>
           <Shield size={16} />
           <span>Consumer</span>
+        </NavLink>
+
+        <NavLink to="/manufacturer-login" className={linkClass}>
+          <Package size={16} />
+          <span>Manufacturer</span>
+        </NavLink>
+
+        <NavLink to="/distributor-login" className={linkClass}>
+          <Truck size={16} />
+          <span>Distributor</span>
+        </NavLink>
+
+        <NavLink to="/verify" className={linkClass}>
+          <Search size={16} />
+          <span>Verify Product</span>
         </NavLink>
       </nav>
     </aside>

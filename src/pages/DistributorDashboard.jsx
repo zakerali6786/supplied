@@ -119,9 +119,9 @@ const DistributorDashboard = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setShowScanner(true)}
-              className="btn-primary mb-6"
+              className="btn-primary mb-6 mx-auto "
             >
-              <QrCode size={20} className="mr-2" />
+              <QrCode size={80} className="mr-4 my-2 mx-auto" />
               Scan QR Code
             </motion.button>
 
@@ -245,7 +245,7 @@ const DistributorDashboard = () => {
                     </div>
                   ) : (
                     <>
-                      <Truck size={20} className="mr-2" />
+                      <Truck size={50} className="mx-auto flex gap-2 items-center" />
                       Transfer Batch
                     </>
                   )}

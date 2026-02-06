@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Package, Plus, CheckCircle } from 'lucide-react';
+import { Package, Plus, CheckCircle, ArrowLeft } from 'lucide-react';
 import QRDisplay from '../components/QRDisplay';
 import { toast } from 'react-hot-toast';
 
 const ManufacturerDashboard = () => {
+  const navigate = useNavigate();
   const [productName, setProductName] = useState('');
   const [manufacturer, setManufacturer] = useState('');
   const [createdBatch, setCreatedBatch] = useState(null);
@@ -33,48 +35,104 @@ const ManufacturerDashboard = () => {
 
   return (
     <div className="min-h-screen pb-20">
+      <header className="border-b border-slate-800/50 backdrop-blur-xl sticky top-0 z-40 bg-dark-200/80">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <button
+            onClick={() => navigate('/role-selection')}
+            className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors"
+          >
+            <ArrowLeft size={20} />
+            <span>Back</span>
+          </button>
+
+          <div className="flex items-center gap-3">
+            <Package className="text-blue-400" size={24} />
+            <h1 className="text-xl font-bold font-display text-white">
+              MANUFACTURER
+            </h1>
+          </div>
+
+          <div className="w-20" />
+        </div>
+      </header>
+
       <div className="container mx-auto px-4 py-8">
         {!createdBatch ? (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-            <div className="glass-card p-8">
-              <div className="mb-6">
-                <h2 className="text-3xl font-bold text-white mb-2">Create New Batch</h2>
-                <p className="text-slate-400">Register a new product batch</p>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Create New Batch */}
+              <div className="glass-card p-8">
+                <div className="mb-6">
+                  <h2 className="text-3xl font-bold text-white mb-2">Create New Batch</h2>
+                  <p className="text-slate-400">Register a new product batch</p>
+                </div>
+
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-slate-300 mb-2">Product Name</label>
+                    <input
+                      value={productName}
+                      onChange={(e) => setProductName(e.target.value)}
+                      placeholder="e.g. Premium Coffee Beans"
+                      className="input-field w-full"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-300 mb-2">Manufacturer</label>
+                    <input
+                      value={manufacturer}
+                      onChange={(e) => setManufacturer(e.target.value)}
+                      placeholder="e.g. FreshBeans Co."
+                      className="input-field w-full"
+                    />
+                  </div>
+
+                  <button
+                    onClick={handleCreate}
+                    disabled={isCreating}
+                    className="btn-primary w-full flex items-center justify-center gap-2 py-3"
+                  >
+                    {isCreating ? (
+                      <div className="spinner w-4 h-4" />
+                    ) : (
+                      <Plus size={16} />
+                    )}
+                    {isCreating ? 'Creating...' : 'Create Batch'}
+                  </button>
+                </div>
               </div>
 
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Product Name</label>
-                  <input
-                    value={productName}
-                    onChange={(e) => setProductName(e.target.value)}
-                    placeholder="e.g. Premium Coffee Beans"
-                    className="input-field w-full"
-                  />
+              {/* Recent Batches */}
+              <div className="glass-card p-6">
+                <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">Recent Batches</h2>
+                <div className="space-y-3">
+                  {[
+                    { id: 'BATCH-2024-0847', name: 'Acetaminophen 500mg', date: 'Dec 1, 2024' },
+                    { id: 'BATCH-2024-1055', name: 'Li-Ion Battery EV-200', date: 'Dec 10, 2024' },
+                    { id: 'BATCH-2024-0912', name: 'Organic Olive Oil 1L', date: 'Nov 15, 2024' },
+                  ].map((b, i) => (
+                    <motion.div
+                      key={b.id}
+                      className="flex items-center justify-between p-4 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-all border border-slate-700/30 hover:border-cyber-500/30 group"
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.1 }}
+                    >
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-semibold text-white truncate group-hover:text-cyber-400 transition-colors">
+                          {b.name}
+                        </p>
+                        <p className="text-xs text-slate-500 mt-1">
+                          {b.id} · {b.date}
+                        </p>
+                      </div>
+                      <div className="ml-4 flex-shrink-0">
+                        <QRDisplay value={b.id} size={40} />
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Manufacturer</label>
-                  <input
-                    value={manufacturer}
-                    onChange={(e) => setManufacturer(e.target.value)}
-                    placeholder="e.g. FreshBeans Co."
-                    className="input-field w-full"
-                  />
-                </div>
-
-                <button
-                  onClick={handleCreate}
-                  disabled={isCreating}
-                  className="btn-primary w-full flex items-center justify-center gap-2 py-3"
-                >
-                  {isCreating ? (
-                    <div className="spinner w-4 h-4" />
-                  ) : (
-                    <Plus size={16} />
-                  )}
-                  {isCreating ? 'Creating...' : 'Create Batch'}
-                </button>
               </div>
             </div>
 
