@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Shield, Package, Truck, Store, ArrowRight } from 'lucide-react';
 import WalletConnect from '../components/WalletConnect';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../context/AppContext';  
+import LiquidEther from '../components/backgrounds/LiquidEther';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -37,7 +38,34 @@ const HomePage = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Liquid Ether Background */}
+      <div className="absolute inset-0 z-0">
+        <LiquidEther
+          colors={[ '#3B82F6', '#3B82F6', '#3B82F6' ]}
+          mouseForce={20}
+          cursorSize={100}
+          isViscous
+          viscous={30}
+          iterationsViscous={32}
+          iterationsPoisson={32}
+          resolution={0.5}
+          isBounce={false}
+          autoDemo
+          autoSpeed={0.5}
+          autoIntensity={2.2}
+          takeoverDuration={0.25}
+          autoResumeDelay={3000}
+          autoRampDuration={0.6}
+          color0="#3B82F6"
+          color1="#3B82F6"
+          color2="#3B82F6"
+          style={{ width: '100%', height: '100%' }}
+        />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10">
       {/* Header */}
       <header className="border-b  rounded-full border-slate-800/50 backdrop-blur-xl sticky top-1 z-40">
         <div className="container px-10 py-4 flex items-center justify-between align-middle gap-20">
@@ -67,9 +95,9 @@ const HomePage = () => {
       {/* Hero Section */}
       <section className="relative overflow-hidden py-20">
         {/* Background Effects */}
-        <div className="absolute inset-0 grid-bg opacity-30" />
+        {/* <div className="absolute inset-0 grid-bg opacity-30" />
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyber-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" /> */}
 
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
@@ -167,6 +195,7 @@ const HomePage = () => {
           <p>© 2026 Supply Chain Integrity Tracker. Powered by Blockchain.</p>
         </div>
       </footer>
+      </div>
     </div>
   );
 };

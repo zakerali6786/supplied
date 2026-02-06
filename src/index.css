@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;600&display=swap');
+/*! @tailwindcss/forms */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,10 +10,11 @@
   }
   
   body {
-    @apply bg-dark-200 text-slate-200 font-sans;
+    @apply font-sans bg-main;
+    color: #E5E7EB;
     background-image: 
-      radial-gradient(circle at 20% 50%, rgba(8, 145, 178, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(8, 145, 178, 0.05) 0%, transparent 50%);
+      radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.03) 0%, transparent 50%);
   }
 
   ::-webkit-scrollbar {
@@ -19,37 +22,38 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-dark-100;
+    @apply bg-card;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-cyber-600 rounded-full;
+    @apply bg-primary-600 rounded-full;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-cyber-500;
+    @apply bg-primary-500;
   }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-dark-100/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-xl;
+    @apply bg-card/60 backdrop-blur-xl border border-border rounded-2xl shadow-xl;
   }
 
   .glass-card-hover {
-    @apply glass-card transition-all duration-300 hover:border-cyber-500/50 hover:shadow-cyber-500/20;
+    @apply glass-card transition-all duration-300 hover:border-primary-500/50 hover:shadow-primary-500/20;
   }
 
   .btn-primary {
-    @apply bg-cyber-500 hover:bg-cyber-600 text-white font-medium px-6 py-3 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-cyber-500/50 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply bg-primary-500 hover:bg-primary-600 text-white font-medium px-6 py-3 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-primary-500/50 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
   .btn-secondary {
-    @apply bg-dark-50 hover:bg-dark-100 text-slate-200 font-medium px-6 py-3 rounded-xl border border-slate-700 transition-all duration-200 hover:border-cyber-500/50 active:scale-95;
+    @apply bg-accent-soft hover:bg-accent-500/30 text-accent-400 font-medium px-6 py-3 rounded-xl border border-accent-500 transition-all duration-200 hover:border-accent-500 active:scale-95;
   }
 
   .input-field {
-    @apply bg-dark-100 border border-slate-700 rounded-xl px-4 py-3 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyber-500 focus:ring-2 focus:ring-cyber-500/20 transition-all duration-200;
+    @apply bg-card border border-border rounded-xl px-4 py-3 placeholder-muted focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-200;
+    color: #E5E7EB;
   }
 
   .status-badge {
@@ -64,7 +68,7 @@
     content: '';
     position: absolute;
     inset: -2px;
-    background: linear-gradient(45deg, #0891b2, #06b6d4, #0891b2);
+    background: linear-gradient(45deg, #3B82F6, #8B5CF6, #3B82F6);
     border-radius: inherit;
     opacity: 0;
     transition: opacity 0.3s;
@@ -78,8 +82,8 @@
 
   .grid-bg {
     background-image: 
-      linear-gradient(rgba(8, 145, 178, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(8, 145, 178, 0.03) 1px, transparent 1px);
+      linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
     background-size: 50px 50px;
   }
 
@@ -87,12 +91,12 @@
     position: absolute;
     width: 100%;
     height: 2px;
-    background: linear-gradient(90deg, transparent, #06b6d4, transparent);
+    background: linear-gradient(90deg, transparent, #3B82F6, transparent);
     animation: scan 2s ease-in-out infinite;
   }
 
   .text-glow {
-    text-shadow: 0 0 20px rgba(8, 145, 178, 0.5);
+    text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
   }
 }
 
@@ -122,15 +126,15 @@
 
 .matrix-char {
   animation: matrix-rain linear infinite;
-  color: #0891b2;
+  color: #3B82F6;
   font-family: 'JetBrains Mono', monospace;
-  text-shadow: 0 0 8px rgba(8, 145, 178, 0.8);
+  text-shadow: 0 0 8px rgba(59, 130, 246, 0.8);
 }
 
 /* Loading spinner */
 .spinner {
-  border: 3px solid rgba(8, 145, 178, 0.1);
-  border-top-color: #0891b2;
+  border: 3px solid rgba(59, 130, 246, 0.1);
+  border-top-color: #3B82F6;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }

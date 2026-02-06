@@ -7,39 +7,64 @@ export default {
   theme: {
     extend: {
       colors: {
-        /* REQUIRED FIX */
-        border: "hsl(214 32% 91%)",
-
-        // Custom color palette for supply chain tracking
+        /* Border color */
+        border: '#1F2A44',
+        
+        /* Primary accent - liquid blue */
+        primary: {
+          500: '#3B82F6',
+          600: '#2563EB',
+          700: '#1D4ED8',
+        },
+        
+        /* Secondary accent - violet glow */
+        accent: {
+          400: '#C4B5FD',
+          500: '#8B5CF6',
+          600: '#7C3AED',
+        },
+        'accent-soft': 'rgba(139, 92, 246, 0.25)',
+        
+        /* Status colors */
+        success: '#22C55E',
+        warning: '#F59E0B',
+        danger: '#EF4444',
+        
+        /* Semantic base colors - flat structure for Tailwind utilities */
+        main: '#070B14',     /* bg-main */
+        card: '#0F172A',     /* bg-card */
+        elevated: '#111C2D', /* bg-elevated */
+        muted: '#94A3B8',    /* text-muted */
+        dim: '#64748B',      /* text-dim */
+        
+        /* Glow effects */
+        'glow-blue': 'rgba(59, 130, 246, 0.35)',
+        'glow-violet': 'rgba(139, 92, 246, 0.35)',
+        
+        /* Legacy colors for backward compatibility */
         cyber: {
           50: '#e6f7ff',
           100: '#b3e5ff',
           200: '#80d4ff',
           300: '#4dc2ff',
           400: '#1ab1ff',
-          500: '#0891b2',
-          600: '#0e7490',
-          700: '#155e75',
+          500: '#3B82F6',
+          600: '#2563EB',
+          700: '#1D4ED8',
           800: '#164e63',
           900: '#0a3a4a',
         },
         dark: {
-          50: '#1e293b',
-          100: '#0f172a',
-          200: '#0a0e27',
+          50: '#1F2A44',
+          100: '#0F172A',
+          200: '#070B14',
           300: '#080b1f',
           400: '#060817',
           500: '#04050f',
         },
-        status: {
-          safe: '#10b981',
-          warning: '#f59e0b',
-          danger: '#ef4444',
-          tampered: '#dc2626',
-        }
       },
       fontFamily: {
-        display: ['Orbitron', 'sans-serif'],
+        display: ['Space Grotesk', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
         sans: ['Inter', 'sans-serif'],
       },
@@ -58,8 +83,8 @@ export default {
           '50%': { transform: 'translateY(100%)' },
         },
         glow: {
-          '0%, 100%': { boxShadow: '0 0 20px rgba(8, 145, 178, 0.5)' },
-          '50%': { boxShadow: '0 0 40px rgba(8, 145, 178, 0.8)' },
+          '0%, 100%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.5)' },
+          '50%': { boxShadow: '0 0 40px rgba(59, 130, 246, 0.8)' },
         },
         decode: {
           '0%': { opacity: 0, filter: 'blur(10px)' },
