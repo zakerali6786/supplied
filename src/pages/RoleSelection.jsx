@@ -30,34 +30,29 @@ const RoleSelection = () => {
       route: '/distributor',
     },
     {
-      id: ROLES.RETAILER,
-      icon: Store,
-      title: 'Retailer',
-      description: 'Confirm receipt and prepare for sale',
-      features: ['Receive batches', 'Final confirmation', 'Consumer ready'],
-      gradient: 'from-green-500 to-emerald-500',
-      route: '/retailer',
-    },
-    {
       id: ROLES.CONSUMER,
       icon: Shield,
       title: 'Consumer',
       description: 'Verify product authenticity and provenance',
       features: ['Scan QR codes', 'View history', 'Check integrity'],
       gradient: 'from-purple-500 to-pink-500',
-      route: '/verify',
+      route: '/consumer-dashboard',
     },
   ];
 
   const handleRoleSelect = async (role) => {
-    if (!walletAddress) {
+    // Consumers don't need a connected wallet to view verification
+    if (role.id !== ROLES.CONSUMER && !walletAddress) {
       toast.error('Please connect your wallet first');
       navigate('/');
       return;
     }
 
     try {
-      await selectRole(role.id);
+      // Only set the role for non-consumer flows (consumer is a public verifier)
+      if (role.id !== ROLES.CONSUMER) {
+        await selectRole(role.id);
+      }
       navigate(role.route);
     } catch (error) {
       console.error('Failed to select role:', error);
@@ -94,7 +89,7 @@ const RoleSelection = () => {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
           {roles.map((role, index) => (
             <motion.div
               key={role.id}

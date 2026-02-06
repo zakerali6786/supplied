@@ -10,6 +10,11 @@ import ManufacturerDashboard from './pages/ManufacturerDashboard';
 import DistributorDashboard from './pages/DistributorDashboard';
 import RetailerDashboard from './pages/RetailerDashboard';
 import ConsumerVerification from './pages/ConsumerVerification';
+import DashboardLayout from './layouts/DashboardLayout';
+import ConsumerDashboard from './pages/ConsumerDashboard';
+
+import ManufacturerLogin from './pages/ManufacturerLogin';
+import DistributorLogin from './pages/DistributorLogin';
 
 function App() {
   return (
@@ -25,10 +30,16 @@ function App() {
             <Route path="/manufacturer" element={<ManufacturerDashboard />} />
             <Route path="/distributor" element={<DistributorDashboard />} />
             <Route path="/retailer" element={<RetailerDashboard />} />
+
+            {/* Login pages for manufacturer/distributor (placeholders) */}
+            <Route path="/manufacturer-login" element={<ManufacturerLogin />} />
+            <Route path="/distributor-login" element={<DistributorLogin />} />
             
-            {/* Consumer Routes */}
-            <Route path="/verify" element={<ConsumerVerification />} />
-            <Route path="/verify/:batchId" element={<ConsumerVerification />} />
+            {/* Consumer Routes (wrapped in dashboard layout) */}
+            <Route path="/consumer-dashboard" element={<DashboardLayout />}>
+              <Route index element={<ConsumerDashboard />} />
+              <Route path=":batchId" element={<ConsumerVerification />} />
+            </Route>
             
             {/* Catch all - redirect to home */}
             <Route path="*" element={<Navigate to="/" replace />} />

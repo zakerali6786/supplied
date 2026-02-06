@@ -40,7 +40,7 @@ const HomePage = () => {
     <div className="min-h-screen">
       {/* Header */}
       <header className="border-b  rounded-full border-slate-800/50 backdrop-blur-xl sticky top-1 z-40">
-        <div className="container px-4 py-4 flex items-center justify-center align-middle gap-20">
+        <div className="container px-10 py-4 flex items-center justify-between align-middle gap-20">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -103,9 +103,8 @@ const HomePage = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => navigate(walletAddress ? '/role-selection' : '#')}
-              disabled={!walletAddress}
-              className="btn-primary text-lg px-8 py-4 disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={() => navigate('/role-selection')}
+              className="btn-primary text-lg px-8 py-4"
             >
               {walletAddress ? (
                 <>
@@ -162,34 +161,6 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
-      {/* Stats Section */}
-      <section className="py-20 border-t border-slate-800/50">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { label: 'Batches Tracked', value: '10K+' },
-              { label: 'Integrity Score', value: '98%' },
-              { label: 'Active Users', value: '500+' },
-            ].map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="text-center glass-card p-8"
-              >
-                <div className="text-5xl font-bold font-display text-cyber-400 mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-slate-400">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Footer */}
       <footer className="border-t border-slate-800/50 py-8">
         <div className="container mx-auto px-4 text-center text-slate-500 text-sm">

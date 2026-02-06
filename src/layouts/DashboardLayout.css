@@ -1,0 +1,31 @@
+:root {
+  --color-bg-body: #0f172a; /* match app dark background */
+}
+
+.dashboard-layout {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.main-content-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    /* Prevents flex items from overflowing */
+}
+
+.content-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    background-color: var(--color-bg-body);
+}
+
+/* Small responsive fixes to align with site spacing */
+@media (max-width: 768px) {
+  .dashboard-layout { flex-direction: column; }
+  .content-area { padding: 16px; }
+}

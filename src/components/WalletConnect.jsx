@@ -1,11 +1,13 @@
 import React from 'react';
-import { Wallet, LogOut } from 'lucide-react';
+import { Wallet, LogOut, Truck, Store } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { formatAddress } from '../utils/helpers';
 
 const WalletConnect = () => {
-  const { walletAddress, isConnecting, connectWallet, disconnectWallet } = useApp();
+  const { walletAddress, disconnectWallet } = useApp();
+  const navigate = useNavigate();
 
   if (walletAddress) {
     return (
@@ -30,23 +32,37 @@ const WalletConnect = () => {
   }
 
   return (
-    <motion.button
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      onClick={connectWallet}
-      disabled={isConnecting}
-      className="btn-primary flex items-center gap-2"
-    >
-      <Wallet size={20} />
-      {isConnecting ? (
-        <>
-          <span>Connecting...</span>
-          <div className="spinner w-4 h-4" />
-        </>
-      ) : (
-        <span>Connect Wallet</span>
-      )}
-    </motion.button>
+    <div className="flex items-center gap-2">
+      <motion.button
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        onClick={() => navigate('/consumer-dashboard')}
+        className="btn-primary flex items-center gap-2"
+      >
+        <Wallet size={20} />
+        <span>Consumer</span>
+      </motion.button>
+
+      <motion.button
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        onClick={() => navigate('/manufacturer-login')}
+        className="btn-primary flex items-center gap-2"
+      >
+        <Truck size={20} />
+        Manufacturer
+      </motion.button>
+
+      <motion.button
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        onClick={() => navigate('/distributor-login')}
+        className="btn-primary flex items-center gap-2"
+      >
+        <Store size={20} />
+        Distributor
+      </motion.button>
+    </div>
   );
 };
 
