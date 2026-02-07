@@ -5,7 +5,6 @@ import { AppProvider } from './context/AppContext';
 
 // Pages
 import HomePage from './pages/HomePage';
-import RoleSelection from './pages/RoleSelection';
 import ManufacturerDashboard from './pages/ManufacturerDashboard';
 import DistributorDashboard from './pages/DistributorDashboard';
 import RetailerDashboard from './pages/RetailerDashboard';
@@ -25,7 +24,6 @@ function App() {
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<HomePage />} />
-            <Route path="/role-selection" element={<RoleSelection />} />
             <Route path="/verify" element={<VerifyPage />} />
             
             {/* Role-based Dashboards */}

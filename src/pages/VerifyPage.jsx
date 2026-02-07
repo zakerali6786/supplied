@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Search, ShieldCheck, AlertTriangle } from 'lucide-react';
+import { Search, ShieldCheck, AlertTriangle, Home, Package, Truck, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import IntegrityBadge from '../components/IntegrityBadge';
 import Timeline from '../components/Timeline';
 import QRScanner from '../components/QRScanner';
 import LoadingSpinner from '../components/LoadingSpinner';
-import Sidebar from '../components/Sidebar';
+import RainbowShield from '../components/RainbowShield';
+import FloatingLines from '../components/FloatingLines';
 import { mockBatches, recentAlerts } from '../data/mockData';
 import { mockAPI } from '../services/mockAPI';
 import { mockContract } from '../services/mockContract';
@@ -15,11 +16,19 @@ import { mockContract } from '../services/mockContract';
 const VerifyPage = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [batchId, setBatchId] = useState(searchParams.get('batch') || '');
   const [result, setResult] = useState(null);
   const [searching, setSearching] = useState(false);
   const [showScanner, setShowScanner] = useState(false);
   const [activeTab, setActiveTab] = useState('search');
+
+  const navLinks = [
+    { label: 'Consumer', path: '/', icon: ArrowRight },
+    { label: 'Manufacturer', path: '/manufacturer-login', icon: Package },
+    { label: 'Distributor', path: '/distributor-login', icon: Truck },
+    { label: 'Verify Product', path: '/verify', icon: Search },
+  ];
 
   useEffect(() => {
     const param = searchParams.get('batch');
@@ -80,29 +89,72 @@ const VerifyPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-dark-200">
-      {/* Sidebar */}
-      <Sidebar />
+    <div className="min-h-screen w-full bg-dark-200">
+      {/* Background */}
+      <div className="fixed inset-0 z-0">
+        <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+          <FloatingLines 
+            enabledWaves={["top","middle","bottom"]}
+            linesGradient={["#ff5f6d","#ffc371","#ffd166","#38b6ff","#7c4dff","#ff66c4"]}
+            lineCount={5}
+            lineDistance={5}
+            bendRadius={5}
+            bendStrength={-0.5}
+            interactive={true}
+            parallax={true}
+          />
+        </div>
+      </div>
 
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col">
-        {/* Header */}
-        <header className="border-b border-slate-800/50 backdrop-blur-xl sticky top-0 z-40 bg-dark-200/80">
-          <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-            <div className="w-20" />
+      {/* Overlay Blur */}
+      <div className="fixed inset-0 backdrop-blur-md bg-black/20 z-0"></div>
 
-            <div className="flex items-center gap-3">
-              <Search className="text-cyber-400" size={24} />
+      {/* Header Navbar */}
+      <header className="fixed top-0 left-0 right-0 z-40 border-b border-slate-800/50 backdrop-blur-xl">
+        <div className="container mx-auto px-10 py-4 flex items-center justify-between">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="flex items-center gap-3"
+          >
+            <RainbowShield size={32} />
+            <div>
               <h1 className="text-xl font-bold font-display text-white">
-                VERIFY PRODUCT
+                SUPPLY CHAIN
               </h1>
+              <p className="text-xs font-mono">INTEGRITY TRACKER</p>
             </div>
+          </motion.div>
 
-            <div className="w-20" />
-          </div>
-        </header>
+          <motion.nav
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="flex items-center gap-4"
+          >
+            {navLinks.map((link) => {
+              const isActive = location.pathname === link.path || location.pathname.startsWith(link.path);
+              const Icon = link.icon;
+              return (
+                <button
+                  key={link.path}
+                  onClick={() => navigate(link.path)}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
+                    isActive
+                      ? 'bg-cyan-500/20 text-white border border-cyan-400/50'
+                      : 'text-slate-400 hover:text-white border border-slate-700/50 hover:border-slate-600'
+                  }`}
+                >
+                  <Icon size={16} />
+                  <span>{link.label}</span>
+                </button>
+              );
+            })}
+          </motion.nav>
+        </div>
+      </header>
 
-        <div className="flex-1 overflow-auto py-6 px-6">
+      <div className="relative z-10 pt-24 min-h-screen">
+        <div className="container mx-auto px-6 py-6">
           <motion.div
             className="w-full"
             initial={{ opacity: 0, y: 6 }}

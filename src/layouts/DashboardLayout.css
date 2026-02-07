@@ -3,29 +3,41 @@
 }
 
 .dashboard-layout {
-    display: flex;
-    height: 100vh;
+    position: relative;
     width: 100vw;
+    min-height: 100vh;
     overflow: hidden;
 }
 
 .main-content-wrapper {
-    flex: 1;
+    margin-top: 80px;
+    width: 100%;
+    height: calc(100vh - 80px);
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    min-width: 0;
-    /* Prevents flex items from overflowing */
 }
 
 .content-area {
     flex: 1;
     overflow-y: auto;
+    overflow-x: hidden;
     padding: 24px;
-    background-color: var(--color-bg-body);
+    background: transparent;
 }
 
 /* Small responsive fixes to align with site spacing */
 @media (max-width: 768px) {
-  .dashboard-layout { flex-direction: column; }
-  .content-area { padding: 16px; }
+  .dashboard-layout { 
+    flex-direction: column; 
+  }
+  
+  .main-content-wrapper {
+    margin-top: 70px;
+    height: calc(100vh - 70px);
+  }
+  
+  .content-area { 
+    padding: 16px; 
+  }
 }

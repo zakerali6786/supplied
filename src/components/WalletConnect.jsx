@@ -37,7 +37,7 @@ const WalletConnect = () => {
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         onClick={() => navigate('/consumer-dashboard')}
-        className="btn-primary flex items-center gap-2"
+        className="top-nav-btn flex items-center gap-2"
       >
         <Wallet size={20} />
         <span>Consumer</span>
@@ -47,7 +47,7 @@ const WalletConnect = () => {
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         onClick={() => navigate('/manufacturer-login')}
-        className="btn-primary flex items-center gap-2"
+        className="top-nav-btn flex items-center gap-2"
       >
         <Store size={20} />
         Manufacturer
@@ -57,7 +57,7 @@ const WalletConnect = () => {
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         onClick={() => navigate('/distributor-login')}
-        className="btn-primary flex items-center gap-2"
+        className="top-nav-btn flex items-center gap-2"
       >
         <Truck size={20} />
         Distributor
@@ -67,7 +67,7 @@ const WalletConnect = () => {
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         onClick={() => navigate('/verify')}
-        className="btn-primary flex items-center gap-2"
+        className="top-nav-btn flex items-center gap-2"
       >
         <Search size={20} />
         Verify

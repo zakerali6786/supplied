@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Truck, ArrowLeft, QrCode } from 'lucide-react';
+import { Truck, QrCode, Home, Package, Search } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { mockContract } from '../services/mockContract';
@@ -10,6 +10,8 @@ import { isValidAddress } from '../utils/helpers';
 import QRScanner from '../components/QRScanner';
 import Timeline from '../components/Timeline';
 import LoadingSpinner from '../components/LoadingSpinner';
+import RainbowShield from '../components/RainbowShield';
+import FloatingLines from '../components/FloatingLines';
 
 const DistributorDashboard = () => {
   const navigate = useNavigate();
@@ -76,30 +78,77 @@ const DistributorDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen pb-20">
-      {/* Header */}
-      <header className="border-b border-slate-800/50 backdrop-blur-xl sticky top-0 z-40 bg-dark-200/80">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <button
-            onClick={() => navigate('/role-selection')}
-            className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors"
-          >
-            <ArrowLeft size={20} />
-            <span>Back</span>
-          </button>
-
-          <div className="flex items-center gap-3">
-            <Truck className="text-yellow-400" size={24} />
-            <h1 className="text-xl font-bold font-display text-white">
-              DISTRIBUTOR
-            </h1>
-          </div>
-
-          <div className="w-20" />
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 z-0">
+        <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+          <FloatingLines 
+            enabledWaves={["top","middle","bottom"]}
+            linesGradient={["#ff5f6d","#ffc371","#ffd166","#38b6ff","#7c4dff","#ff66c4"]}
+            lineCount={5}
+            lineDistance={5}
+            bendRadius={5}
+            bendStrength={-0.5}
+            interactive={true}
+            parallax={true}
+          />
         </div>
-      </header>
+        {/* Overlay Blur */}
+        <div className="absolute inset-0 backdrop-blur-md bg-black/20 z-0"></div>
+      </div>
 
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+      {/* Content */}
+      <div className="relative z-10">
+        {/* Header */}
+        <header className="border-b border-slate-800/50 backdrop-blur-xl sticky top-0 z-40">
+          <div className="container mx-auto px-10 py-4 flex items-center justify-between">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="flex items-center gap-3"
+            >
+              <RainbowShield size={32} />
+              <div>
+                <h1 className="text-xl font-bold font-display text-white">
+                  SUPPLY CHAIN
+                </h1>
+                <p className="text-xs font-mono">INTEGRITY TRACKER</p>
+              </div>
+            </motion.div>
+
+            <motion.nav
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="flex items-center gap-4"
+            >
+              {[
+                { label: 'Home', path: '/', icon: Home },
+                { label: 'Manufacturer', path: '/manufacturer', icon: Package },
+                { label: 'Distributor', path: '/distributor', icon: Truck },
+                { label: 'Verify Product', path: '/verify', icon: Search },
+              ].map((link) => {
+                const isActive = window.location.pathname === link.path;
+                const Icon = link.icon;
+                return (
+                  <button
+                    key={link.path}
+                    onClick={() => navigate(link.path)}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
+                      isActive
+                        ? 'bg-cyan-500/20 text-white border border-cyan-400/50'
+                        : 'text-slate-400 hover:text-white border border-slate-700/50 hover:border-slate-600'
+                    }`}
+                  >
+                    <Icon size={16} />
+                    <span>{link.label}</span>
+                  </button>
+                );
+              })}
+            </motion.nav>
+          </div>
+        </header>
+
+        <div className="container mx-auto px-4 py-8 pb-20 max-w-4xl">
         {!batchData ? (
           /* Scan Batch */
           <motion.div
@@ -264,15 +313,16 @@ const DistributorDashboard = () => {
             </div>
           </motion.div>
         )}
+        </div>
+
+        {/* QR Scanner Modal */}
+        {showScanner && (
+          <QRScanner onScan={handleScan} onClose={() => setShowScanner(false)} />
+        )}
+
+        {/* Loading Overlay */}
+        {loading && batchData === null && <LoadingSpinner fullScreen message="Loading batch..." />}
       </div>
-
-      {/* QR Scanner Modal */}
-      {showScanner && (
-        <QRScanner onScan={handleScan} onClose={() => setShowScanner(false)} />
-      )}
-
-      {/* Loading Overlay */}
-      {loading && batchData === null && <LoadingSpinner fullScreen message="Loading batch..." />}
     </div>
   );
 };

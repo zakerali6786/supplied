@@ -1,10 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Shield, Package, Truck, Store, ArrowRight, Wallet } from 'lucide-react';
+import { Factory, Boxes, ShoppingBag, User, ArrowRight } from 'lucide-react';
+import RainbowShield from '../components/RainbowShield';
 import WalletConnect from '../components/WalletConnect';
 import { useApp } from '../context/AppContext';  
-import LiquidEther from '../components/backgrounds/LiquidEther';
+import FloatingLines from '../components/FloatingLines';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -12,56 +13,52 @@ const HomePage = () => {
 
   const features = [
     {
-      icon: Package,
+      icon: Factory,
       title: 'Manufacturer',
       description: 'Create and track product batches from origin',
-      color: 'text-blue-400',
+      color: 'text-white',
+      bgColor: 'bg-blue-500/20',
     },
     {
-      icon: Truck,
+      icon: Boxes,
       title: 'Distributor',
       description: 'Transfer custody and maintain chain integrity',
-      color: 'text-yellow-400',
+      color: 'text-white',
+      bgColor: 'bg-yellow-500/20',
     },
     {
-      icon: Store,
+      icon: ShoppingBag,
       title: 'Retailer',
       description: 'Confirm receipt and prepare for consumers',
-      color: 'text-green-400',
+      color: 'text-white',
+      bgColor: 'bg-green-500/20',
     },
     {
-      icon: Wallet,
+      icon: User,
       title: 'Consumer',
       description: 'Verify authenticity and product provenance',
-      color: 'text-purple-400',
+      color: 'text-white',
+      bgColor: 'bg-red-500/20',
     },
   ];
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* Liquid Ether Background */}
       <div className="absolute inset-0 z-0">
-        <LiquidEther
-          colors={[ '#3B82F6', '#3B82F6', '#3B82F6' ]}
-          mouseForce={20}
-          cursorSize={100}
-          isViscous
-          viscous={30}
-          iterationsViscous={32}
-          iterationsPoisson={32}
-          resolution={0.5}
-          isBounce={false}
-          autoDemo
-          autoSpeed={0.5}
-          autoIntensity={2.2}
-          takeoverDuration={0.25}
-          autoResumeDelay={3000}
-          autoRampDuration={0.6}
-          color0="#3B82F6"
-          color1="#3B82F6"
-          color2="#3B82F6"
-          style={{ width: '100%', height: '100%' }}
-        />
+        <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+          <FloatingLines 
+            enabledWaves={["top","middle","bottom"]}
+            linesGradient={["#ff5f6d","#ffc371","#ffd166","#38b6ff","#7c4dff","#ff66c4"]}
+            // Array - specify line count per wave; Number - same count for all waves
+            lineCount={5}
+            // Array - specify line distance per wave; Number - same distance for all waves
+            lineDistance={5}
+            bendRadius={5}
+            bendStrength={-0.5}
+            interactive={true}
+            parallax={true}
+          />
+        </div>
       </div>
 
       {/* Content */}
@@ -74,12 +71,12 @@ const HomePage = () => {
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center gap-3"
           >
-            <Shield className="text-cyber-500" size={32} />
+            <RainbowShield size={32} className="" />
             <div>
               <h1 className="text-xl font-bold font-display text-white">
                 SUPPLY CHAIN
               </h1>
-              <p className="text-xs text-cyber-400 font-mono">INTEGRITY TRACKER</p>
+              <p className="text-xs font-mono" >INTEGRITY TRACKER</p>
             </div>
           </motion.div>
 
@@ -110,9 +107,9 @@ const HomePage = () => {
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.6 }}
-              className="inline-block mb-6 px-6 py-2 bg-cyber-500/10 border border-cyber-500/30 rounded-full"
+              className="inline-block mb-6 px-6 py-2 bg-red-500/15 border border-red-400/30 rounded-full"
             >
-              <span className="text-cyber-400 text-sm font-mono">
+              <span className="text-red-300 text-sm font-mono font-semibold">
                 BLOCKCHAIN-POWERED VERIFICATION
               </span>
             </motion.div>
@@ -120,7 +117,7 @@ const HomePage = () => {
             <h1 className="text-6xl md:text-7xl font-display font-bold text-white mb-6 text-glow">
               Secure Your
               <br />
-              Supply Chain
+              <span className="rainbow-text">Supply Chain</span>
             </h1>
 
             <p className="text-xl text-slate-300 mb-12 max-w-2xl mx-auto leading-relaxed">
@@ -172,13 +169,13 @@ const HomePage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -8 }}
-                className="glass-card-hover p-6 text-center group"
+                whileHover={{ y: -4 }}
+                className={`p-6 text-center group rounded-lg border border-slate-700/20 ${feature.bgColor} hover:shadow-lg transition-all duration-200`}
               >
-                <div className={`inline-flex p-4 rounded-2xl bg-dark-100 mb-4 group-hover:scale-110 transition-transform ${feature.color}`}>
-                  <feature.icon size={32} />
+                <div className={`inline-flex p-3 rounded-full bg-slate-800/20 mb-4 group-hover:scale-110 transition-transform`}>
+                  <feature.icon size={28} className={feature.color} />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">
+                <h3 className="text-lg font-bold text-white mb-2">
                   {feature.title}
                 </h3>
                 <p className="text-slate-400 text-sm leading-relaxed">
@@ -190,9 +187,10 @@ const HomePage = () => {
         </div>
       </section>
       {/* Footer */}
-      <footer className="border-t border-slate-800/50 py-8">
-        <div className="container mx-auto px-4 text-center text-slate-500 text-sm">
-          <p>© 2026 Supply Chain Integrity Tracker. Powered by Blockchain.</p>
+      <footer className="py-12 mt-20">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-white text-sm mb-2">© 2026 Supply Chain Integrity Tracker. Powered by Blockchain.</p>
+          <p className="text-white text-sm">Made with 💗 by Gigachads</p>
         </div>
       </footer>
       </div>
